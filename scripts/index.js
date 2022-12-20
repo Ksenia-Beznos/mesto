@@ -14,24 +14,24 @@ const subtitleProfile = document.querySelector('.profile__subtitle');
 
 // общие функции для открытия/закрытия всех попапов
 function openPopup(popup) {
-  popup.classList.add('popup_opened')
+  popup.classList.add('popup_opened');
 }
 
 function closePopup(popup) {
-  popup.classList.remove('popup_opened')
+  popup.classList.remove('popup_opened');
 }
 
-popupProfileOpenButton.addEventListener('click', function() {
+popupProfileOpenButton.addEventListener('click', function () {
   openPopup(popupProfile);
   nameInput.value = titleProfile.textContent;
   jobInput.value = subtitleProfile.textContent;
 });
 
-popupProfileCloseButton.addEventListener('click', function() {
-  closePopup(popupProfile)
+popupProfileCloseButton.addEventListener('click', function () {
+  closePopup(popupProfile);
 });
 
-function handleSubmitProfileForm (evt) {
+function handleSubmitProfileForm(evt) {
   evt.preventDefault();
   titleProfile.textContent = nameInput.value;
   subtitleProfile.textContent = jobInput.value;
@@ -55,19 +55,19 @@ const formElementCard = popupCard.querySelector('.popup__form_type_cards');
 
 const cardsContainer = document.querySelector('.element'); //находим список ul с классом element, чтобы туда поместить блок с новой карточкой
 
-popupCardsAddButton.addEventListener('click', function() {
+popupCardsAddButton.addEventListener('click', function () {
   openPopup(popupCard);
 });
 
-popupCardsCloseButton.addEventListener('click', function() {
+popupCardsCloseButton.addEventListener('click', function () {
   closePopup(popupCard);
 });
 
-function handleSubmitAddCardForm (evt) {
+function handleSubmitAddCardForm(evt) {
   evt.preventDefault();
-  const newCard = {text: titleInput.value, link: linkInput.value};
-  const cardItem = createCard(newCard);
-  cardsContainer.prepend(cardItem);
+  const newCard = { text: titleInput.value, link: linkInput.value };
+  const card = createCard(newCard);
+  renderCard(cardsContainer, card);
   closePopup(popupCard);
 }
 
@@ -77,36 +77,48 @@ formElementCard.addEventListener('submit', handleSubmitAddCardForm);
 
 // функция создания карточки (через метод template)
 const popupImage = document.querySelector('.popup_type_image'); // попап для открытия картинок
-const popupImageOpen = popupImage.querySelector('.element__image'); // попап с картинкой открывается при нажатии на изображение
+// const popupImageOpen = popupImage.querySelector('.element__image'); // попап с картинкой открывается при нажатии на изображение
 const popupImageCloseButton = popupImage.querySelector('.popup__close-icon_type_image'); // кнопка закрытия
 const popupImagePhoto = popupImage.querySelector('.popup__photo');
 const popupImageFigcap = popupImage.querySelector('.popup__figcap');
 
 const listItemTemplate = document.querySelector('#template-element').content;
 
-const createCard = function(card){
+// функция-обработчик изменения лайка с обычного состояния на активное и наоборот (далее будем вешать на нее слушатель при нажатии на кнопку лайка)
+function addChangeLike(evt) {
+  evt.target.classList.toggle('element__heart-button_active');
+}
+
+// функция-обработчик удаления карточки (далее будем вешать на нее слушатель при нажатии на иконку корзины)
+function addDeleteCard(evt) {
+  evt.target.closest('.element__item').remove();
+}
+
+// функция-обработчик открытия карточки(попапа) (далее будем вешать на нее слушатель при нажатии на картинку)
+function addImagePopup(evt) {
+  popupImagePhoto.src = evt.target.src;
+  popupImagePhoto.alt = evt.target.alt;
+  popupImageFigcap.textContent = evt.target.alt;
+  openPopup(popupImage);
+}
+
+const createCard = function (card) {
   const cardElement = listItemTemplate.cloneNode(true);
 
-  cardElement.querySelector('.element__image').src = card.link; // добавляем ссылку на карточку
-  cardElement.querySelector('.element__image').alt = card.text; // добавляем текст в alt
+  const popupImageOpen = cardElement.querySelector('.element__image');
+  popupImageOpen.src = card.link; // добавляем ссылку на карточку
+  popupImageOpen.alt = card.text; // добавляем текст в alt
+
   cardElement.querySelector('.element__title').textContent = card.text; // добавляем название карточки
 
-  cardElement.querySelector('.element__heart-button').addEventListener('click', function(evt) { // добавляем слушатель на кнопку лайка
-    evt.target.classList.toggle('element__heart-button_active'); // меняем состояние кнопки лайка с обычного на активный и наоборот
-  });
+  // вешаем слушатель на кнопку лайка для изменения состояния кнопки (передаем ранее объявленную функцию addChangeLike)
+  cardElement.querySelector('.element__heart-button').addEventListener('click', addChangeLike);
+  // вешаем слушатель на кнопку удаления (передаем ранее объявленную функцию addDeleteCard)
+  cardElement.querySelector('.element__trash-button').addEventListener('click', addDeleteCard);
+  // вешаем слушатель на картинку (он же попап) и передаем ранее объявленную функцию addImagePopup
+  popupImageOpen.addEventListener('click', addImagePopup);
 
-  cardElement.querySelector('.element__trash-button').addEventListener('click', function(evt) { // добавляем слушатель на кнопку удаления карточки (корзинка)
-    evt.target.closest('.element__item').remove(); // удаляем карточку методом closest
-  });
-
-  cardElement.querySelector('.element__image').addEventListener('click', function (evt) { // добавляем слушатель на картинку, чтобы при клике на нее открывался попап с полномасштабным изображением
-      popupImagePhoto.src=evt.target.src;
-      popupImagePhoto.alt=evt.target.alt;
-      popupImageFigcap.textContent=evt.target.alt;
-      openPopup(popupImage);
-  });
-
-  popupImageCloseButton.addEventListener('click', function() {
+  popupImageCloseButton.addEventListener('click', function () {
     closePopup(popupImage);
   });
 
@@ -115,5 +127,9 @@ const createCard = function(card){
 
 initialCards.forEach((element) => {
   const card = createCard(element);
-  cardsContainer.prepend(card);  // добавляем карточку на страницу вначало с помощью prepend
-})
+  renderCard(cardsContainer, card); // добавляем карточку на страницу вначало с помощью prepend
+});
+
+function renderCard(container, card) {
+  container.prepend(card);
+}

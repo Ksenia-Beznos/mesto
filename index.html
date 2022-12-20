@@ -1,90 +1,113 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
-  <title>Mesto</title>
-</head>
-<body class="root">
-  <div class="page">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Mesto</title>
+  </head>
+  <body class="root">
+    <div class="page">
+      <header class="header">
+        <img class="header__logo" src="./images/Logo.svg" alt="Логотип Mesto" />
+      </header>
 
-  <header class="header">
-    <img class="header__logo" src="./images/Logo.svg" alt="Логотип Mesto">
-  </header>
+      <main class="content">
+        <section class="profile">
+          <img
+            class="profile__avatar"
+            src="./images/avatar-kusto.jpg"
+            alt="Цветная фотография улыбающегося Жак-Ив Кусто в очках и красной шапке"
+          />
+          <div class="profile__container">
+            <div class="profile__info">
+              <h1 class="profile__title">Жак-Ив Кусто</h1>
+              <p class="profile__subtitle">Исследователь океана</p>
+              <button class="profile__edit-button" type="button" aria-label="Изменить"></button>
+            </div>
+            <button class="profile__add-button" type="button" aria-label="Добавить"></button>
+          </div>
+        </section>
 
-  <main class="content">
+        <!-- секция с карточками (остальное ниже в template) -->
+        <section class="elements">
+          <ul class="element"></ul>
+        </section>
+      </main>
 
-    <section class="profile">
-      <img class="profile__avatar" src="./images/avatar-kusto.jpg" alt="Цветная фотография улыбающегося Жак-Ив Кусто в очках и красной шапке">
-      <div class="profile__container">
-        <div class="profile__info">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <p class="profile__subtitle">Исследователь океана</p>
-          <button class="profile__edit-button" type="button" aria-label="Изменить"></button>
+      <footer class="footer">
+        <p class="footer__copyright">&copy; 2022 Ksenia Beznos</p>
+      </footer>
+
+      <div class="popup popup_type_profile">
+        <div class="popup__container">
+          <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
+          <h2 class="popup__heading">Редактировать профиль</h2>
+          <form class="popup__form popup__form_type_profile" name="profile__form">
+            <input
+              class="popup__input popup__input_type_name"
+              type="text"
+              name="nameInput"
+              placeholder="Имя"
+              required
+            />
+            <input
+              class="popup__input popup__input_type_job"
+              type="text"
+              name="jobInput"
+              placeholder="О себе"
+              required
+            />
+            <button class="popup__submit-button" type="submit" aria-label="Сохранить">Сохранить</button>
+          </form>
         </div>
-        <button class="profile__add-button" type="button" aria-label="Добавить"></button>
       </div>
-    </section>
 
-    <!-- секция с карточками (остальное ниже в template) -->
-    <section class="elements">
-      <ul class="element">
-      </ul>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <p class="footer__copyright">&copy; 2022 Ksenia Beznos</p>
-  </footer>
-
-  <div class="popup popup_type_profile">
-    <div class="popup__container">
-      <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
-      <h2 class="popup__heading">Редактировать профиль</h2>
-      <form class="popup__form popup__form_type_profile" name="profile__form">
-        <input class="popup__input popup__input_type_name" type="text" name="nameInput" placeholder="Имя" required>
-        <input class="popup__input popup__input_type_job" type="text" name="jobInput" placeholder="О себе" required>
-        <button class="popup__submit-button" type="submit" aria-label="Сохранить">Сохранить</button>
-      </form>
-    </div>
-  </div>
-
-  <div class="popup popup_type_cards">
-    <div class="popup__container">
-      <button class="popup__close-icon popup__close-icon_type_cards" type="button" aria-label="Закрыть"></button>
-      <h2 class="popup__heading">Новое место</h2>
-      <form class="popup__form popup__form_type_cards" name="profile__form-cards">
-        <input class="popup__input popup__input_type_title" type="text" name="titleInput" placeholder="Название" required>
-        <input class="popup__input popup__input_type_link" type="url" name="linkInput" placeholder="Ссылка на картинку" required>
-        <button class="popup__submit-button" type="submit" aria-label="Сохранить">Сохранить</button>
-      </form>
-    </div>
-  </div>
-
-  <div class="popup popup_type_image">
-    <figure class="popup__container-image">
-      <img class="popup__photo">
-      <figcaption class="popup__figcap"></figcaption>
-      <button class="popup__close-icon popup__close-icon_type_image" type="button" aria-label="Закрыть"></button>
-    </figure>
-  </div>
-
-  <template id="template-element">
-    <li class="element__item">
-      <img class="element__image">
-      <div class="element__mask-group">
-        <h2 class="element__title"></h2>
-        <button class="element__heart-button" type="button"></button>
-        <button class="element__trash-button" type="button"></button>
+      <div class="popup popup_type_cards">
+        <div class="popup__container">
+          <button class="popup__close-icon popup__close-icon_type_cards" type="button" aria-label="Закрыть"></button>
+          <h2 class="popup__heading">Новое место</h2>
+          <form class="popup__form popup__form_type_cards" name="profile__form-cards">
+            <input
+              class="popup__input popup__input_type_title"
+              type="text"
+              name="titleInput"
+              placeholder="Название"
+              required
+            />
+            <input
+              class="popup__input popup__input_type_link"
+              type="url"
+              name="linkInput"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <button class="popup__submit-button" type="submit" aria-label="Сохранить">Сохранить</button>
+          </form>
+        </div>
       </div>
-    </li>
-  </template>
 
-</div>
-<script src="./scripts/cards.js"></script>
-<script src="./scripts/index.js"></script>
-</body>
+      <div class="popup popup_type_image">
+        <figure class="popup__container-image">
+          <img class="popup__photo" />
+          <figcaption class="popup__figcap"></figcaption>
+          <button class="popup__close-icon popup__close-icon_type_image" type="button" aria-label="Закрыть"></button>
+        </figure>
+      </div>
+
+      <template id="template-element">
+        <li class="element__item">
+          <img class="element__image" />
+          <div class="element__mask-group">
+            <h2 class="element__title"></h2>
+            <button class="element__heart-button" type="button"></button>
+            <button class="element__trash-button" type="button"></button>
+          </div>
+        </li>
+      </template>
+    </div>
+    <script src="./scripts/cards.js"></script>
+    <script src="./scripts/index.js"></script>
+  </body>
 </html>
