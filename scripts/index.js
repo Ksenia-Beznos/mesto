@@ -1,8 +1,10 @@
-// popup для редактирования данных в профиле
+
+const rootElement = document.querySelector('.root'); // корневой элемент страницы
+const popupOverlay = document.querySelector('.popup'); // оверлей попапов
 
 const popupProfile = document.querySelector('.popup_type_profile'); //попап для рекдактирования текстовой информации
 const popupProfileOpenButton = document.querySelector('.profile__edit-button'); //кнопка открытия
-const popupProfileCloseButton = popupProfile.querySelector('.popup__close-icon'); //кнопка закрытия
+const popupProfileCloseButton = popupProfile.querySelector('.popup__close-icon_type_profile'); //кнопка закрытия
 
 const nameInput = popupProfile.querySelector('.popup__input_type_name');
 const jobInput = popupProfile.querySelector('.popup__input_type_job');
@@ -12,14 +14,40 @@ const popupFormElement = popupProfile.querySelector('.popup__form_type_profile')
 const titleProfile = document.querySelector('.profile__title');
 const subtitleProfile = document.querySelector('.profile__subtitle');
 
+//==================================
+
+// функция закрытия для всех попапов по нажатию на ESC
+const closePopupEsc = (popup) => (evt) => {
+  if (evt.key === 'Escape') {
+    closePopup(popup);
+  }
+};
+
+// функция закрытия для всех попапов по клику на оверлей
+const closePopupOverlay = (popup) => (evt) => {
+  if (evt.target.classList.contains('popup_opened')) {
+    closePopup(popup);
+  }
+};
+
 // общие функции для открытия/закрытия всех попапов
+// открытие попапов
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
+  popup.classList.add('popup_opened'); // добавляем класс popup_opened, чтобы открыть попап
+  rootElement.addEventListener('keydown', closePopupEsc(popup)); // добавляем слушатель на rootElement, который отслеживает нажатие на ESC только при открытом попапе
+  rootElement.addEventListener('mouseup', closePopupOverlay(popup)); // добавляем слушатель на rootElement, который отслеживает клик на оверлей только при открытом попапе
 }
 
+// закрытие попапов
 function closePopup(popup) {
-  popup.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened'); // удаляем класс popup_opened, чтобы закрыть попап
+  rootElement.removeEventListener('keydown', closePopupEsc(popup)); // удаляем слушатель с rootElement в то время, когда попап закрыт (нажатие на esc)
+  rootElement.removeEventListener('mouseup', closePopupOverlay(popup)); // удаляем слушатель с rootElement в то время, когда попап закрыт (клик на оверлей)
 }
+
+//==================================
+
+// popup для редактирования данных в профиле
 
 popupProfileOpenButton.addEventListener('click', function () {
   openPopup(popupProfile);
@@ -76,8 +104,8 @@ formElementCard.addEventListener('submit', handleSubmitAddCardForm);
 //==================================
 
 // функция создания карточки (через метод template)
+
 const popupImage = document.querySelector('.popup_type_image'); // попап для открытия картинок
-// const popupImageOpen = popupImage.querySelector('.element__image'); // попап с картинкой открывается при нажатии на изображение
 const popupImageCloseButton = popupImage.querySelector('.popup__close-icon_type_image'); // кнопка закрытия
 const popupImagePhoto = popupImage.querySelector('.popup__photo');
 const popupImageFigcap = popupImage.querySelector('.popup__figcap');
@@ -102,6 +130,7 @@ function addImagePopup(evt) {
   openPopup(popupImage);
 }
 
+// функция создания карточки
 const createCard = function (card) {
   const cardElement = listItemTemplate.cloneNode(true);
 
@@ -127,9 +156,10 @@ const createCard = function (card) {
 
 initialCards.forEach((element) => {
   const card = createCard(element);
-  renderCard(cardsContainer, card); // добавляем карточку на страницу вначало с помощью prepend
+  renderCard(cardsContainer, card);
 });
 
-function renderCard(container, card) {
+function renderCard(container, card) {  // функция вывода карточки на страницу вначало с помощью prepend
   container.prepend(card);
 }
+
