@@ -41,8 +41,8 @@ trim_trailing_whitespace = true
 
 # Possible values - true, false
 
-insert_final_newline = true
+insert_final_newline = false
 
 quote_type = single
-max_line_length = 200
+max_line_length = 160
 

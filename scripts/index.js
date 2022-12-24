@@ -1,4 +1,3 @@
-
 const rootElement = document.querySelector('.root'); // корневой элемент страницы
 const popupOverlay = document.querySelector('.popup'); // оверлей попапов
 
@@ -92,6 +91,7 @@ popupCardsCloseButton.addEventListener('click', function () {
 });
 
 function handleSubmitAddCardForm(evt) {
+  evt.target.reset();
   evt.preventDefault();
   const newCard = { text: titleInput.value, link: linkInput.value };
   const card = createCard(newCard);
@@ -159,7 +159,7 @@ initialCards.forEach((element) => {
   renderCard(cardsContainer, card);
 });
 
-function renderCard(container, card) {  // функция вывода карточки на страницу вначало с помощью prepend
+function renderCard(container, card) {
+  // функция вывода карточки на страницу вначало с помощью prepend
   container.prepend(card);
 }
-
