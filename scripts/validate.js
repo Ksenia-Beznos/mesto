@@ -34,13 +34,6 @@ function setEventListeners(formElement, config) {
 
   toggleButtonState(inputList, buttonElement, config);
 
-  //очищаем форму через 0 секунд
-  formElement.addEventListener('reset', () => {
-    setTimeout(() => {
-      toggleButtonState(inputList, buttonElement, config);
-    }, 0);
-  })
-
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement, config);

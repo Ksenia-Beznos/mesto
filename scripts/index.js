@@ -48,10 +48,16 @@ function openPopup(popup) {
 }
 
 // закрытие попапов
-function closePopup(popup) {
+function closePopup(popup, form) {
   popup.classList.remove('popup_opened'); // удаляем класс popup_opened, чтобы закрыть попап
   document.removeEventListener('keydown', closeByEscape); // удаляем слушатель с rootElement в то время, когда попап закрыт (нажатие на esc)
   document.removeEventListener('mouseup', closePopupOverlay); // удаляем слушатель с rootElement в то время, когда попап закрыт (клик на оверлей)
+  if (form) {
+    form.reset();
+    const button = form.elements.submit;
+    button.classList.add('popup__submit-button_disabled');
+    button.disabled = true;
+  }
 }
 
 //==================================
@@ -68,8 +74,9 @@ popupProfileOpenButton.addEventListener('click', function () {
 closeButtons.forEach((button) => {
   // находим 1 раз ближайший к крестику попап
   const popup = button.closest('.popup');
+  const popupForm = popup.querySelector('.popup__form');
   // устанавливаем обработчик закрытия на крестик
-  button.addEventListener('click', () => closePopup(popup));
+  button.addEventListener('click', () => closePopup(popup, popupForm));
 });
 
 // функция добавления данных, введенных в инпуты попапа profile, на страницу
@@ -97,7 +104,7 @@ const formElementCard = popupCard.querySelector('.popup__form_type_cards');
 
 const cardsContainer = document.querySelector('.element'); //находим список ul с классом element, чтобы туда поместить блок с новой карточкой
 
-popupCardsAddButton.addEventListener('click', function() {
+popupCardsAddButton.addEventListener('click', function () {
   openPopup(popupCard);
 });
 
@@ -107,8 +114,8 @@ function handleSubmitAddCardForm(evt) {
   const newCard = { text: titleInput.value, link: linkInput.value };
   const card = createCard(newCard);
   renderCard(cardsContainer, card);
-  closePopup(popupCard);
-  evt.target.reset();
+  closePopup(popupCard, formElementCard);
+  // evt.target.reset();
 }
 
 formElementCard.addEventListener('submit', handleSubmitAddCardForm);
