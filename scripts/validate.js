@@ -1,83 +1,74 @@
-
 //функция, которая добавляет класс с ошибкой
-const showInputError = (formElement, inputElement, errorMessage) => {
+function showInputError(formElement, inputElement, errorMessage, config) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('popup__input_type_error');
+  inputElement.classList.add(config.inputErrorClass);
   errorElement.textContent = errorMessage;
   //показываем сообщение об ошибке
-  errorElement.classList.add('popup__input_error_active');
-};
+  errorElement.classList.add(config.errorClass);
+}
 
 //функция, которая удаляет класс с ошибкой
-const hideInputError = (formElement, inputElement) => {
+function hideInputError(formElement, inputElement, config) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_type_error');
+  inputElement.classList.remove(config.inputErrorClass);
   //скрываем сообщение об ошибке
-  errorElement.classList.remove('popup__input_error_active');
+  errorElement.classList.remove(config.errorClass);
   errorElement.textContent = '';
-};
+}
 
 //функция, которая проверяет валидность поля
-const checkInputValidity = (formElement, inputElement) => {
+function checkInputValidity(formElement, inputElement, config) {
   if (!inputElement.validity.valid) {
     // если поле не прошло валидацию - покажем ошибку
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage, config);
   } else {
     // если поле прошло валидация - скроем ошибку
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, config);
   }
-};
+}
 
 // функция добавляет слушатели сразу всем полям формы
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const buttonElement = formElement.querySelector('.popup__submit-button');
+function setEventListeners(formElement, config) {
+  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement, config);
+
+  //очищаем форму через 0 секунд
+  formElement.addEventListener('reset', () => {
+    setTimeout(() => {
+      toggleButtonState(inputList, buttonElement, config);
+    }, 0);
+  })
 
   inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
+    inputElement.addEventListener('input', () => {
+      checkInputValidity(formElement, inputElement, config);
+      toggleButtonState(inputList, buttonElement, config);
     });
   });
-};
+}
 
 // функция, ответственная за включение валидации всех форм
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
+function enableValidation({ formSelector, ...restConfig }) {
+  const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    });
-    setEventListeners(formElement);
+    setEventListeners(formElement, restConfig);
   });
-};
+}
 
 // Функция принимает массив полей
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  }
-)};
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => !inputElement.validity.valid);
+}
 
 // Функция, которая отвечает за блокировку кнопки «Сохранить»
-const toggleButtonState = (inputList, buttonElement) => {
+function toggleButtonState(inputList, buttonElement, config) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('popup__submit-button_disabled');
+    buttonElement.classList.add(config.inactiveButtonClass);
     buttonElement.disabled = true;
   } else {
-    buttonElement.classList.remove('popup__submit-button_disabled');
+    buttonElement.classList.remove(config.inactiveButtonClass);
     buttonElement.disabled = false;
   }
-};
-
-// функция принимает как объект настроек все нужные функциям классы и селекторы элементов
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input_error_active',
-});
+}
