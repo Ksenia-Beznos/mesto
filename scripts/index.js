@@ -21,9 +21,11 @@ const subtitleProfile = document.querySelector('.profile__subtitle');
 
 const closeButtons = document.querySelectorAll('.popup__close-icon'); // кнопки закрытия
 
+const buttonSubmitProfile = popupProfile.querySelector('.popup__submit-button');
+
 //==================================
 
-// функция закрытия для всех попапов по нажатию на ESC
+// универсальная функция закрытия для всех попапов по нажатию на ESC
 function closeByEscape(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
@@ -31,15 +33,15 @@ function closeByEscape(evt) {
   }
 }
 
-// функция закрытия для всех попапов по клику на оверлей
-// evt.target и есть открытый popup
-const closePopupOverlay = (evt) => {
+// универсальная функция закрытия для всех попапов по клику на оверлей
+// evt.target - это и есть открытый popup
+function closePopupOverlay(evt) {
   if (evt.target.classList.contains('popup_opened')) {
     closePopup(evt.target);
   }
-};
+}
 
-// общие функции для открытия/закрытия всех попапов
+// универсальные функции для открытия/закрытия всех попапов
 // открытие попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened'); // добавляем класс popup_opened, чтобы открыть попап
@@ -48,16 +50,10 @@ function openPopup(popup) {
 }
 
 // закрытие попапов
-function closePopup(popup, form) {
+function closePopup(popup) {
   popup.classList.remove('popup_opened'); // удаляем класс popup_opened, чтобы закрыть попап
   document.removeEventListener('keydown', closeByEscape); // удаляем слушатель с rootElement в то время, когда попап закрыт (нажатие на esc)
   document.removeEventListener('mouseup', closePopupOverlay); // удаляем слушатель с rootElement в то время, когда попап закрыт (клик на оверлей)
-  if (form) {
-    form.reset();
-    const button = form.elements.submit;
-    button.classList.add('popup__submit-button_disabled');
-    button.disabled = true;
-  }
 }
 
 //==================================
@@ -67,6 +63,13 @@ popupProfileOpenButton.addEventListener('click', function () {
   openPopup(popupProfile);
   nameInput.value = titleProfile.textContent;
   jobInput.value = subtitleProfile.textContent;
+
+  // если значения полей не пусты
+  if (nameInput.value !== '' || jobInput.value !== '') {
+    // убираем неактивный класс кнопки (т.е. активируем кнопку)
+    buttonSubmitProfile.classList.remove('popup__submit-button_disabled');
+    buttonSubmitProfile.disabled = false;
+  }
 });
 
 // универсальный обработчик закрытия попапов по нажатию на крестик
@@ -105,8 +108,17 @@ const formElementCard = popupCard.querySelector('.popup__form_type_cards');
 const cardsContainer = document.querySelector('.element'); //находим список ul с классом element, чтобы туда поместить блок с новой карточкой
 
 popupCardsAddButton.addEventListener('click', function () {
+  clearForm(formElementCard); // очистка формы и дезактивация кнопки
   openPopup(popupCard);
 });
+
+// универсальная функция очистки полей формы, а также дезактивации кнопки
+function clearForm(form) {
+  form.reset();
+  const button = form.elements.submit;
+  button.classList.add('popup__submit-button_disabled');
+  button.disabled = true;
+}
 
 // функция добавления данных, введенных в инпуты попапа с карточками, на страницу
 function handleSubmitAddCardForm(evt) {
@@ -115,7 +127,6 @@ function handleSubmitAddCardForm(evt) {
   const card = createCard(newCard);
   renderCard(cardsContainer, card);
   closePopup(popupCard, formElementCard);
-  // evt.target.reset();
 }
 
 formElementCard.addEventListener('submit', handleSubmitAddCardForm);
