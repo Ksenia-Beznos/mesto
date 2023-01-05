@@ -1,11 +1,3 @@
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input_error_active',
-};
 
 class FormValidator {
   constructor(validationConfig, form) {
@@ -79,15 +71,4 @@ class FormValidator {
   }
 }
 
-// создаем экземпляр FormValidator для попапа с карточками
-const cardForm = document.querySelector('.popup__form_type_cards');
-const cardFormValidator = new FormValidator(validationConfig, cardForm);
-
-// создаем экземпляр FormValidator для попапа profile
-const profileForm = document.querySelector('.popup__form_type_profile');
-const profileFormValidator = new FormValidator(validationConfig, profileForm);
-
-// Вызываем метод enableValidation
-cardFormValidator.enableValidation();
-profileFormValidator.enableValidation();
-
+export { FormValidator }
