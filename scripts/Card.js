@@ -1,13 +1,29 @@
-
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  activeButtonClass: 'popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input_error_active',
-};
+const initialCards = [
+  {
+    text: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+  },
+  {
+    text: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+  },
+  {
+    text: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+  },
+  {
+    text: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+  },
+  {
+    text: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+  },
+  {
+    text: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+  },
+];
 
 const popupProfile = document.querySelector('.popup_type_profile'); //попап для рекдактирования текстовой информации
 const popupProfileOpenButton = document.querySelector('.profile__edit-button'); //кнопка открытия
@@ -140,8 +156,7 @@ formElementCard.addEventListener('submit', handleSubmitAddCardForm);
 const popupImage = document.querySelector('.popup_type_image'); // попап для открытия картинок
 const popupImageCloseButton = popupImage.querySelector('.popup__close-icon_type_image'); // кнопка закрытия
 
-
-enableValidation(validationConfig);
+// enableValidation(validationConfig);
 
 //___________________________________
 
