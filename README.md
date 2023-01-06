@@ -16,30 +16,29 @@
 - Разбить JavaScript на модули;
 
 
-## **КАКИЕ ТЕХНОЛОГИИ ИСПОЛЬЗОВАЛИСЬ?**
+### **Какие технологии использовались?**
 
-### :heavy_check_mark: _CSS_
+##### :heavy_check_mark: _CSS_
 
-### :heavy_check_mark: _HTML_
+##### :heavy_check_mark: _HTML_
 
-### :heavy_check_mark: _Java Script_
+##### :heavy_check_mark: _Java Script_
 
-### :heavy_check_mark: _Grid layout_
+##### :heavy_check_mark: _Grid layout_
 
-### :heavy_check_mark: _Flexbox вёрстка_
+##### :heavy_check_mark: _Flexbox вёрстка_
 
-### :heavy_check_mark: _Медиазапросы для адаптива_
+##### :heavy_check_mark: _Медиазапросы для адаптива_
 
-### :heavy_check_mark: _Использование модулей_
+##### :heavy_check_mark: _Использование модулей_
 
-### :heavy_check_mark: _Объектно-ориентированное программирование_
+##### :heavy_check_mark: _Объектно-ориентированное программирование_
 
-### :heavy_check_mark: _Директивы Export и Import в JS_
-
+##### :heavy_check_mark: _Директивы Export и Import в JS_
 
 ____
 
-## **ЧТО В ПЛАНАХ?**
+## **Что в планах?**
 
 - [ ] Расширить функциональность сайта.
 

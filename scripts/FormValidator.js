@@ -39,12 +39,12 @@ class FormValidator {
 
   //метод, который добавляет слушатели сразу всем полям формы
   _setEventListeners() {
-    this._toggleButtonState();
+    this.toggleButtonState();
 
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState();
+        this.toggleButtonState();
       });
     });
   }
@@ -60,7 +60,7 @@ class FormValidator {
   }
 
   // метод, который отвечает за блокировку кнопки «Сохранить»
-  _toggleButtonState() {
+  toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._buttonElement.classList.add(this._config.inactiveButtonClass);
       this._buttonElement.disabled = true;
@@ -70,5 +70,6 @@ class FormValidator {
     }
   }
 }
+
 
 export { FormValidator }

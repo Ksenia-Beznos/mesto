@@ -1,33 +1,6 @@
-import { Card } from "./Card.js";
-import { FormValidator } from "./FormValidator.js";
-
-// массив с карточками
-const initialCards = [
-  {
-    text: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    text: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-  },
-  {
-    text: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    text: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    text: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    text: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-];
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+import { initialCards } from './arrCards.js';
 
 //==================================
 
@@ -46,6 +19,10 @@ const closeButtons = document.querySelectorAll('.popup__close-icon'); // кно�
 
 const buttonSubmitProfile = popupProfile.querySelector('.popup__submit-button');
 
+const popupImage = document.querySelector('.popup_type_image');
+const popupImagePhoto = popupImage.querySelector('.popup__photo');
+const popupImageFigcap = popupImage.querySelector('.popup__figcap');
+
 //==================================
 
 // универсальная функция закрытия для всех попапов по нажатию на ESC
@@ -62,6 +39,13 @@ function closePopupOverlay(evt) {
   if (evt.target.classList.contains('popup_opened')) {
     closePopup(evt.target);
   }
+}
+
+function openImagePopup(text, link) {
+  popupImagePhoto.src = link;
+  popupImagePhoto.alt = text;
+  popupImageFigcap.textContent = text;
+  openPopup(popupImage);
 }
 
 // универсальные функции для открытия/закрытия всех попапов
@@ -87,12 +71,7 @@ popupProfileOpenButton.addEventListener('click', function () {
   nameInput.value = titleProfile.textContent;
   jobInput.value = subtitleProfile.textContent;
 
-  // если значения полей не пусты
-  if (nameInput.value !== '' || jobInput.value !== '') {
-    // убираем неактивный класс кнопки (т.е. активируем кнопку)
-    buttonSubmitProfile.classList.remove('popup__submit-button_disabled');
-    buttonSubmitProfile.disabled = false;
-  }
+  profileFormValidator.toggleButtonState();
 });
 
 // универсальный обработчик закрытия попапов по нажатию на крестик
@@ -137,18 +116,15 @@ popupCardsAddButton.addEventListener('click', function () {
 // универсальная функция очистки полей формы, а также дезактивации кнопки
 function clearForm(form) {
   form.reset();
-  const button = form.elements.submit;
-  button.classList.add('popup__submit-button_disabled');
-  button.disabled = true;
+  cardFormValidator.toggleButtonState();
 }
 
 // функция добавления данных, введенных в инпуты попапа с карточками, на страницу
 function handleSubmitAddCardForm(evt) {
   evt.preventDefault();
   const newCard = { text: titleInput.value, link: linkInput.value };
-  const card = new Card(newCard, '#template-element', openPopup);
-  const fullCard = card.generateCard();
-  renderCard(cardsContainer, fullCard);
+  createCard(newCard, '#template-element', openImagePopup, cardsContainer);
+
   closePopup(popupCard, formElementCard);
 }
 
@@ -158,11 +134,15 @@ formElementCard.addEventListener('submit', handleSubmitAddCardForm);
 
 // проходим циклом по массиву и создаем экземпляп класса Card (код создания карточек в файле Card.js)
 initialCards.forEach((element) => {
-  const card = new Card(element, '#template-element', openPopup);
+  createCard(element, '#template-element', openImagePopup, cardsContainer);
+});
+
+function createCard(element, template, popup, container) {
+  const card = new Card(element, template, popup);
   const cardElement = card.generateCard();
 
-  renderCard(cardsContainer, cardElement);
-});
+  renderCard(container, cardElement);
+}
 
 // функция вывода карточки на страницу вначало с помощью prepend
 function renderCard(container, card) {
