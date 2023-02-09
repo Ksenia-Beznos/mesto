@@ -1,5 +1,5 @@
 
-class FormValidator {
+export default class FormValidator {
   constructor(validationConfig, form) {
     this._config = validationConfig;
     this._formElement = form;
@@ -70,6 +70,3 @@ class FormValidator {
     }
   }
 }
-
-
-export { FormValidator }

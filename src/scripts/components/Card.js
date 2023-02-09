@@ -1,5 +1,5 @@
 
-class Card {
+export default class Card {
   constructor(data, templateSelector, openPopup) {
     this._text = data.text;
     this._link = data.link;
@@ -8,9 +8,7 @@ class Card {
   }
 
   _getTemplate() {
-    const cardElement = document.querySelector(this._templateSelector).content.querySelector('.element__item').cloneNode(true);
-
-    return cardElement;
+    return document.querySelector(this._templateSelector).content.querySelector('.element__item').cloneNode(true);
   }
 
   // метод, измененяющий состояние лайка с обычного на активное и наоборот
@@ -62,5 +60,3 @@ class Card {
     return this._element;
   }
 }
-
-export { Card };
