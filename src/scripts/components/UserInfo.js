@@ -5,7 +5,7 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-return { title: this._title.textContent, subtitle: this._subtitle.textContent };
+    return { title: this._title.textContent, subtitle: this._subtitle.textContent };
   }
 
   setUserInfo(title, subtitle) {
