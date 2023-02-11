@@ -2,6 +2,8 @@
 export const popupProfileOpenButton = document.querySelector('.profile__edit-button'); //кнопка открытия
 export const popupCardsAddButton = document.querySelector('.profile__add-button'); //кнопка открытия
 export const formElementCard = document.querySelector('.popup__form_type_cards');
+export const profileTitle = document.querySelector('.popup__input_type_name');
+export const profileSubitle = document.querySelector('.popup__input_type_job');
 
 // ----------------
 

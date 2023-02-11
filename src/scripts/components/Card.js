@@ -50,6 +50,7 @@ export default class Card {
     this._element = this._getTemplate();
 
     this._element.querySelector('.element__image').src = this._link;
+    this._element.querySelector('.element__image').alt = this._text;
     this._element.querySelector('.element__title').textContent = this._text;
     this._elementLikeButton = this._element.querySelector('.element__heart-button');
     this._elementTrashButton = this._element.querySelector('.element__trash-button');

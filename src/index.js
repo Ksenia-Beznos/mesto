@@ -1,4 +1,4 @@
-import './index.css'
+import './index.css';
 import Card from './scripts/components/Card.js';
 import FormValidator from './scripts/components/FormValidator.js';
 import UserInfo from './scripts/components/UserInfo.js';
@@ -9,13 +9,14 @@ import Section from './scripts/components/Section.js';
 import { initialCards } from './scripts/utils/arrCards.js';
 import { validationConfig } from './scripts/utils/constants.js';
 
-import { popupProfileOpenButton, popupCardsAddButton, formElementCard } from './scripts/utils/constants.js';
+import { popupProfileOpenButton, popupCardsAddButton, formElementCard, profileTitle, profileSubitle } from './scripts/utils/constants.js';
 
 //==================================
 
+const popupNewImage = new PopupWithImage('.popup_type_image');
+
 function openImagePopup(text, link) {
-  const popupNewImage = new PopupWithImage({ text, link }, '.popup_type_image');
-  popupNewImage.open();
+  popupNewImage.open({ text, link });
 }
 
 //==================================
@@ -23,14 +24,15 @@ function openImagePopup(text, link) {
 const userInfoPopup = new UserInfo({
   title: '.profile__title',
   subtitle: '.profile__subtitle',
-  titleInput: '.popup__input_type_name',
-  subtitleInput: '.popup__input_type_job',
 });
 
 // popup для редактирования данных в профиле
 popupProfileOpenButton.addEventListener('click', function () {
   popupNewProfile.open();
-  userInfoPopup.getUserInfo();
+  const { title, subtitle } = userInfoPopup.getUserInfo();
+  console.log(profileTitle)
+  profileTitle.value = title;
+  profileSubitle.value = subtitle;
 
   profileFormValidator.toggleButtonState();
 });
@@ -54,8 +56,7 @@ popupCardsAddButton.addEventListener('click', function () {
 });
 
 // универсальная функция очистки полей формы, а также дезактивации кнопки
-function clearForm(form) {
-  form.reset();
+function clearForm() {
   cardFormValidator.toggleButtonState();
 }
 
@@ -64,28 +65,22 @@ function clearForm(form) {
 // функция добавления данных, введенных в инпуты попапа с карточками, на страницу
 function handleSubmitAddCardForm(obj) {
   const newCard = { text: obj.titleInput, link: obj.linkInput };
-  const sectionClassCardSingle = new Section(
-    {
-      items: newCard,
-      renderer: (item) => {
-        const cardElement = new Card(item, '#template-element', openImagePopup).generateCard();
-        sectionClassCardSingle.addItem(cardElement);
-      },
-    },
-    '.element'
-  );
-  sectionClassCardSingle.renderItem();
+  cardList.renderItem(newCard);
   popupNewCard.close();
 }
 
 const popupNewCard = new PopupWithForm('.popup_type_cards', handleSubmitAddCardForm);
 
+function createCard(item) {
+  const cardElement = new Card(item, '#template-element', openImagePopup).generateCard();
+  return cardElement;
+}
+
 const cardList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(item, '#template-element', openImagePopup);
-      const cardElement = card.generateCard();
+      const cardElement = createCard(item);
       cardList.addItem(cardElement);
     },
   },
