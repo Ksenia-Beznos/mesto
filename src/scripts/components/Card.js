@@ -1,10 +1,11 @@
 
 export default class Card {
-  constructor(data, templateSelector, openPopup) {
+  constructor(data, templateSelector, openPopup, popupDelete) {
     this._text = data.text;
     this._link = data.link;
     this._openPopup = openPopup;
     this._templateSelector = templateSelector;
+    this._popupDelete = popupDelete; // callback функция
   }
 
   _getTemplate() {
@@ -18,8 +19,7 @@ export default class Card {
 
   // метод, удаляющий карточку
   _deleteCard() {
-    this._element.remove();
-    this._element = null;
+    this._popupDelete(this._element);
   }
 
   // метод, открывающий попап с карточкой при нажатии на эту карточку

@@ -14,7 +14,11 @@
 
       <main class="content">
         <section class="profile">
-          <img class="profile__avatar" src="<%=require('./images/avatar-kusto.jpg')%>" alt="Цветная фотография улыбающегося Жак-Ив Кусто в очках и красной шапке" />
+          <img
+            class="profile__avatar"
+            src="<%=require('./images/avatar-kusto.jpg')%>"
+            alt="Цветная фотография улыбающегося Жак-Ив Кусто в очках и красной шапке"
+          />
           <div class="profile__container">
             <div class="profile__info">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -84,14 +88,7 @@
               maxlength="30"
             />
             <span class="title-input-error popup__input-error"></span>
-            <input
-            id="link-input"
-            class="popup__input popup__input_type_link"
-            type="url"
-            name="linkInput"
-            placeholder="Ссылка на картинку"
-            required
-            />
+            <input id="link-input" class="popup__input popup__input_type_link" type="url" name="linkInput" placeholder="Ссылка на картинку" required />
             <span class="link-input-error popup__input-error"></span>
             <button class="popup__submit-button" type="submit" name="submit" aria-label="Сохранить">Создать</button>
           </form>
@@ -104,6 +101,14 @@
           <figcaption class="popup__figcap"></figcaption>
           <button class="popup__close-icon popup__close-icon_type_image" type="button" aria-label="Закрыть"></button>
         </figure>
+      </div>
+
+      <div class="popup popup_type_cards-delete">
+        <div class="popup__container">
+          <button class="popup__close-icon popup__close-icon_type_cards-delete" type="button" aria-label="Закрыть"></button>
+          <h2 class="popup__heading">Вы уверены?</h2>
+          <button class="popup__submit-button" type="button" aria-label="Подтвердить">Да</button>
+        </div>
       </div>
 
       <template id="template-element">

@@ -5,6 +5,9 @@ export const formElementCard = document.querySelector('.popup__form_type_cards')
 export const profileTitle = document.querySelector('.popup__input_type_name');
 export const profileSubitle = document.querySelector('.popup__input_type_job');
 
+export const popupCardDeleteButton = document.querySelector('.element__trash-button'); //кнопка открытия
+
+
 // ----------------
 
 // объект с селекторами и классами для валиадации форм (код валидации в файле FormValidator.js)

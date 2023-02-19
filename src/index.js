@@ -4,12 +4,20 @@ import FormValidator from './scripts/components/FormValidator.js';
 import UserInfo from './scripts/components/UserInfo.js';
 import PopupWithForm from './scripts/components/PopupWithForm.js';
 import PopupWithImage from './scripts/components/PopupWithImage.js';
+import PopupCardDelete from './scripts/components/PopupCardDelete';
 import Section from './scripts/components/Section.js';
 
 import { initialCards } from './scripts/utils/arrCards.js';
 import { validationConfig } from './scripts/utils/constants.js';
 
-import { popupProfileOpenButton, popupCardsAddButton, formElementCard, profileTitle, profileSubitle } from './scripts/utils/constants.js';
+import {
+  popupProfileOpenButton,
+  popupCardsAddButton,
+  formElementCard,
+  profileTitle,
+  profileSubitle,
+  popupCardDeleteButton,
+} from './scripts/utils/constants.js';
 
 //==================================
 
@@ -30,7 +38,6 @@ const userInfoPopup = new UserInfo({
 popupProfileOpenButton.addEventListener('click', function () {
   popupNewProfile.open();
   const { title, subtitle } = userInfoPopup.getUserInfo();
-  console.log(profileTitle)
   profileTitle.value = title;
   profileSubitle.value = subtitle;
 
@@ -72,7 +79,7 @@ function handleSubmitAddCardForm(obj) {
 const popupNewCard = new PopupWithForm('.popup_type_cards', handleSubmitAddCardForm);
 
 function createCard(item) {
-  const cardElement = new Card(item, '#template-element', openImagePopup).generateCard();
+  const cardElement = new Card(item, '#template-element', openImagePopup, openPopupDelete).generateCard();
   return cardElement;
 }
 
@@ -105,3 +112,10 @@ cardFormValidator.enableValidation();
 profileFormValidator.enableValidation();
 
 //==================================
+
+const popupConfirmDelete = new PopupCardDelete('.popup_type_cards-delete');
+
+function openPopupDelete(element) {
+  popupConfirmDelete.setElement(element);
+  popupConfirmDelete.open();
+}
