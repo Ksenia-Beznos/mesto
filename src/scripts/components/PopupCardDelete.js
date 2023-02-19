@@ -4,7 +4,6 @@ export default class PopupCardDelete extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
     this._deleteButton = this._popup.querySelector('.popup__submit-button');
-    this._element = '';
   }
 
   setElement(element) {

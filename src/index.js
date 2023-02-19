@@ -16,7 +16,6 @@ import {
   formElementCard,
   profileTitle,
   profileSubitle,
-  popupCardDeleteButton,
 } from './scripts/utils/constants.js';
 
 //==================================
@@ -116,6 +115,6 @@ profileFormValidator.enableValidation();
 const popupConfirmDelete = new PopupCardDelete('.popup_type_cards-delete');
 
 function openPopupDelete(element) {
-  popupConfirmDelete.setElement(element);
   popupConfirmDelete.open();
+  popupConfirmDelete.setElement(element);
 }
