@@ -55,7 +55,6 @@ const popupNewProfile = new PopupWithForm('.popup_type_profile', handleSubmitPro
 //==================================
 
 // popup для добавления карточек на страницу
-
 popupCardsAddButton.addEventListener('click', function () {
   clearForm(formElementCard); // очистка формы и дезактивация кнопки
   popupNewCard.open();
@@ -106,9 +105,14 @@ const cardFormValidator = new FormValidator(validationConfig, cardForm);
 const profileForm = document.querySelector('.popup__form_type_profile');
 const profileFormValidator = new FormValidator(validationConfig, profileForm);
 
+// // создаем экземпляр FormValidator для попапа change avatar
+// const profileAvatarForm = document.querySelector('.popup__form_type_avatar');
+// const profileAvatarFormValidator = new FormValidator(validationConfig, profileAvatarForm);
+
 // Вызываем метод enableValidation для включения валидации
 cardFormValidator.enableValidation();
 profileFormValidator.enableValidation();
+// profileAvatarFormValidator.enableValidation(); // выключение кнопки сабмит
 
 //==================================
 
@@ -118,3 +122,13 @@ function openPopupDelete(element) {
   popupConfirmDelete.open();
   popupConfirmDelete.setElement(element);
 }
+
+
+//==================================
+
+// const avatar = document.querySelector('.profile__avatar-outside');
+// const popupAvatar = document.querySelector('.popup_type_avatar');
+
+// avatar.addEventListener('click', function() {
+//   popupAvatar.classList.add('popup_opened');
+// });

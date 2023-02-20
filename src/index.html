@@ -14,11 +14,15 @@
 
       <main class="content">
         <section class="profile">
-          <img
-            class="profile__avatar"
-            src="<%=require('./images/avatar-kusto.jpg')%>"
-            alt="Цветная фотография улыбающегося Жак-Ив Кусто в очках и красной шапке"
-          />
+          <div class="profile__avatar-outside">
+            <button class="profile__avatar-button" type="button" aria-label="Изменить аватар">
+              <img
+                class="profile__avatar"
+                src="<%=require('./images/avatar-kusto.jpg')%>"
+                alt="Цветная фотография улыбающегося Жак-Ив Кусто в очках и красной шапке"
+              />
+            </button>
+          </div>
           <div class="profile__container">
             <div class="profile__info">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -111,12 +115,34 @@
         </div>
       </div>
 
+      <div class="popup popup_type_avatar">
+        <div class="popup__container">
+          <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
+          <h2 class="popup__heading">Обновить аватар</h2>
+          <form class="popup__form popup__form_type_avatar" name="profile__form-avatar" novalidate>
+            <input
+              id="link-input-avatar"
+              class="popup__input popup__input_type_link"
+              type="url"
+              name="linkInputAvatar"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span class="link-input-error popup__input-error"></span>
+            <button class="popup__submit-button popup__submit-button_type_avatar" type="submit" name="submitAvatar" aria-label="Сохранить">Сохранить</button>
+          </form>
+        </div>
+      </div>
+
       <template id="template-element">
         <li class="element__item">
           <img class="element__image" />
           <div class="element__mask-group">
             <h2 class="element__title"></h2>
-            <button class="element__heart-button" type="button"></button>
+            <div class="element__heart-button-group">
+              <button class="element__heart-button" type="button"></button>
+              <span class="element__heart-button-count">0</span>
+            </div>
             <button class="element__trash-button" type="button"></button>
           </div>
         </li>
