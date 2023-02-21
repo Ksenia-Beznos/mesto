@@ -16,66 +16,68 @@ import {
   formElementCard,
   profileTitle,
   profileSubitle,
+  cardForm,
+  profileForm,
+  profileAvatarForm,
 } from './scripts/utils/constants.js';
 
 //==================================
 
-const popupNewImage = new PopupWithImage('.popup_type_image');
-
+// открытие Popup Image
 function openImagePopup(text, link) {
   popupNewImage.open({ text, link });
 }
 
+const popupNewImage = new PopupWithImage('.popup_type_image');
+
 //==================================
 
-const userInfoPopup = new UserInfo({
-  title: '.profile__title',
-  subtitle: '.profile__subtitle',
-});
-
-// popup для редактирования данных в профиле
+// открытие Popup Profile
 popupProfileOpenButton.addEventListener('click', function () {
   popupNewProfile.open();
   const { title, subtitle } = userInfoPopup.getUserInfo();
   profileTitle.value = title;
   profileSubitle.value = subtitle;
 
-  profileFormValidator.toggleButtonState();
+  profileFormValidator.cancelValidation();
 });
 
-// функция добавления данных, введенных в инпуты попапа profile, на страницу
+// функция добавления данных, введенных в попап Card
 function handleSubmitProfileForm(obj) {
   userInfoPopup.setUserInfo(obj.nameInput, obj.jobInput);
-
   popupNewProfile.close();
 }
 
-const popupNewProfile = new PopupWithForm('.popup_type_profile', handleSubmitProfileForm);
-
-//==================================
-
-// popup для добавления карточек на страницу
-popupCardsAddButton.addEventListener('click', function () {
-  clearForm(formElementCard); // очистка формы и дезактивация кнопки
-  popupNewCard.open();
-});
-
-// универсальная функция очистки полей формы, а также дезактивации кнопки
-function clearForm() {
-  cardFormValidator.toggleButtonState();
-}
-
-//==================================
-
-// функция добавления данных, введенных в инпуты попапа с карточками, на страницу
+// функция добавления данных в попап Card
 function handleSubmitAddCardForm(obj) {
   const newCard = { text: obj.titleInput, link: obj.linkInput };
   cardList.renderItem(newCard);
   popupNewCard.close();
 }
 
-const popupNewCard = new PopupWithForm('.popup_type_cards', handleSubmitAddCardForm);
+// функция добавления данных в попап Card
+function handleSubmitAvaterForm() {
+  popupNewAvatar.close();
+}
 
+
+const userInfoPopup = new UserInfo({ title: '.profile__title', subtitle: '.profile__subtitle' });
+
+const popupNewProfile = new PopupWithForm('.popup_type_profile', handleSubmitProfileForm);
+const popupNewCard = new PopupWithForm('.popup_type_cards', handleSubmitAddCardForm);
+const popupNewAvatar = new PopupWithForm('.popup_type_avatar', handleSubmitAvaterForm);
+
+//==================================
+
+// открытие Popup Card
+popupCardsAddButton.addEventListener('click', function () {
+  popupNewCard.open();
+  cardFormValidator.cancelValidation();
+});
+
+//==================================
+
+// функция создания карточек
 function createCard(item) {
   const cardElement = new Card(item, '#template-element', openImagePopup, openPopupDelete).generateCard();
   return cardElement;
@@ -97,38 +99,32 @@ cardList.renderItems();
 
 //==================================
 
-// создаем экземпляр FormValidator для попапа с карточками
-const cardForm = document.querySelector('.popup__form_type_cards');
+// создаем экземпляры класса FormValidator для всех вадидируемых попапов
 const cardFormValidator = new FormValidator(validationConfig, cardForm);
-
-// создаем экземпляр FormValidator для попапа profile
-const profileForm = document.querySelector('.popup__form_type_profile');
 const profileFormValidator = new FormValidator(validationConfig, profileForm);
+const profileAvatarFormValidator = new FormValidator(validationConfig, profileAvatarForm);
 
-// // создаем экземпляр FormValidator для попапа change avatar
-// const profileAvatarForm = document.querySelector('.popup__form_type_avatar');
-// const profileAvatarFormValidator = new FormValidator(validationConfig, profileAvatarForm);
-
-// Вызываем метод enableValidation для включения валидации
+// Вызываем метод enableValidation для включения валидации попапов
 cardFormValidator.enableValidation();
 profileFormValidator.enableValidation();
-// profileAvatarFormValidator.enableValidation(); // выключение кнопки сабмит
+profileAvatarFormValidator.enableValidation();
 
 //==================================
 
 const popupConfirmDelete = new PopupCardDelete('.popup_type_cards-delete');
 
+// функция открытия Delete Confirm Popup
 function openPopupDelete(element) {
   popupConfirmDelete.open();
   popupConfirmDelete.setElement(element);
+  profileAvatarFormValidator.cancelValidation();
 }
-
 
 //==================================
 
-// const avatar = document.querySelector('.profile__avatar-outside');
-// const popupAvatar = document.querySelector('.popup_type_avatar');
+const avatar = document.querySelector('.profile__avatar-outside');
+const popupAvatar = document.querySelector('.popup_type_avatar');
 
-// avatar.addEventListener('click', function() {
-//   popupAvatar.classList.add('popup_opened');
-// });
+avatar.addEventListener('click', function () {
+  popupAvatar.classList.add('popup_opened');
+});

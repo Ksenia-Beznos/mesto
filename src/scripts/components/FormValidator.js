@@ -1,4 +1,3 @@
-
 export default class FormValidator {
   constructor(validationConfig, form) {
     this._config = validationConfig;
@@ -68,5 +67,12 @@ export default class FormValidator {
       this._buttonElement.classList.remove(this._config.inactiveButtonClass);
       this._buttonElement.disabled = false;
     }
+  }
+
+  cancelValidation() {
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+    this._toggleButtonState();
   }
 }

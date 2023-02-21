@@ -13,6 +13,7 @@
       </header>
 
       <main class="content">
+        <!-- Section Profile -->
         <section class="profile">
           <div class="profile__avatar-outside">
             <button class="profile__avatar-button" type="button" aria-label="Изменить аватар">
@@ -33,17 +34,18 @@
           </div>
         </section>
 
-        <!-- секция с карточками (остальное ниже в template) -->
+        <!-- Section Card -->
         <section class="elements">
           <ul class="element"></ul>
         </section>
       </main>
-      <!-- секция с карточками) -->
 
+      <!-- Footer-->
       <footer class="footer">
         <p class="footer__copyright">&copy; 2022 Ksenia Beznos</p>
       </footer>
 
+      <!-- Section popup Profile -->
       <div class="popup popup_type_profile">
         <div class="popup__container">
           <button class="popup__close-icon popup__close-icon_type_profile" type="button" aria-label="Закрыть"></button>
@@ -76,6 +78,7 @@
         </div>
       </div>
 
+      <!-- Section popup Card -->
       <div class="popup popup_type_cards">
         <div class="popup__container">
           <button class="popup__close-icon popup__close-icon_type_cards" type="button" aria-label="Закрыть"></button>
@@ -99,6 +102,7 @@
         </div>
       </div>
 
+      <!-- Section popup Image -->
       <div class="popup popup_type_image">
         <figure class="popup__container-image">
           <img class="popup__photo" />
@@ -107,6 +111,7 @@
         </figure>
       </div>
 
+      <!-- Section popup Card Confirm Delete -->
       <div class="popup popup_type_cards-delete">
         <div class="popup__container">
           <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
@@ -115,6 +120,7 @@
         </div>
       </div>
 
+      <!-- Section popup Avatar -->
       <div class="popup popup_type_avatar">
         <div class="popup__container">
           <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
@@ -128,12 +134,13 @@
               placeholder="Ссылка на картинку"
               required
             />
-            <span class="link-input-error popup__input-error"></span>
+            <span class="link-input-avatar-error popup__input-error"></span>
             <button class="popup__submit-button popup__submit-button_type_avatar" type="submit" name="submitAvatar" aria-label="Сохранить">Сохранить</button>
           </form>
         </div>
       </div>
 
+      <!-- Section Template -->
       <template id="template-element">
         <li class="element__item">
           <img class="element__image" />
