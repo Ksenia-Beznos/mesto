@@ -1,6 +1,8 @@
 
-export const popupProfileOpenButton = document.querySelector('.profile__edit-button'); //кнопка открытия
-export const popupCardsAddButton = document.querySelector('.profile__add-button'); //кнопка открытия
+export const popupProfileOpenButton = document.querySelector('.profile__edit-button'); //кнопка открытия popup Profile
+export const popupCardsAddButton = document.querySelector('.profile__add-button'); //кнопка открытия popup Card
+export const avatarButton = document.querySelector('.profile__avatar-outside'); //кнопка открытия popup Avatar
+
 export const formElementCard = document.querySelector('.popup__form_type_cards');
 export const profileTitle = document.querySelector('.popup__input_type_name');
 export const profileSubitle = document.querySelector('.popup__input_type_job');
