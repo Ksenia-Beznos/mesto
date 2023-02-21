@@ -16,9 +16,9 @@ export default class Api {
     .then(res => {
       return this._checkStatusResponse(res, 'getInitialCards');
     })
-
   }
 
+  
 
 }
 

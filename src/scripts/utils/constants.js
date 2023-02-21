@@ -11,7 +11,6 @@ export const cardForm = document.querySelector('.popup__form_type_cards'); // po
 export const profileForm = document.querySelector('.popup__form_type_profile'); // popup Profile
 export const profileAvatarForm = document.querySelector('.popup__form_type_avatar'); // popup Avatar
 
-
 // ----------------
 
 // объект с селекторами и классами для валиадации форм (код валидации в файле FormValidator.js)
