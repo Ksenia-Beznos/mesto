@@ -22,7 +22,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers,
     }).then((res) => {
-      return this._checkStatusResponse(res, 'getUserInfo');
+      return this._checkStatusResponse(res, 'setUserInfo');
     });
   }
 

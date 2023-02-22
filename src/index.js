@@ -128,6 +128,7 @@ const api = new Api({
   },
 });
 
+  // загрузка карточек с сервера
 api.getInitialCards()
   .then((cardsArray) => {
     cardList.renderItems(cardsArray);
@@ -136,6 +137,7 @@ api.getInitialCards()
     console.log(err);
   });
 
+  // загрузка данные в Profile с сервера
 api.setUserInfo()
   .then((res) => {
     profileName.textContent = res.name;
@@ -145,5 +147,8 @@ api.setUserInfo()
   .catch((err) => {
     console.log(err);
   });
+
+
+
 
 //==================================
