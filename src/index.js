@@ -13,12 +13,15 @@ import { validationConfig } from './scripts/utils/constants.js';
 import {
   popupProfileOpenButton,
   popupCardsAddButton,
-  profileTitle,
-  profileSubitle,
+  popupAvatarButton,
+  profileTitleInput,
+  profileSubtitleInput,
   cardForm,
   profileForm,
   profileAvatarForm,
-  avatarButton,
+  profileName,
+  profileAbout,
+  profileAvatar,
 } from './scripts/utils/constants.js';
 
 //==================================
@@ -53,8 +56,8 @@ function createCard(item) {
 popupProfileOpenButton.addEventListener('click', function () {
   popupNewProfile.open();
   const { title, subtitle } = userInfoPopup.getUserInfo();
-  profileTitle.value = title;
-  profileSubitle.value = subtitle;
+  profileTitleInput.value = title;
+  profileSubtitleInput.value = subtitle;
 
   profileFormValidator.cancelValidation();
 });
@@ -71,7 +74,7 @@ function openImagePopup(name, link) {
 }
 
 // открытие popup Avatar
-avatarButton.addEventListener('click', function () {
+popupAvatarButton.addEventListener('click', function () {
   popupNewAvatar.open();
 });
 
@@ -87,7 +90,7 @@ function openPopupDelete(element) {
 // создаем экземпляр класса UserInfo
 const userInfoPopup = new UserInfo({ title: '.profile__title', subtitle: '.profile__subtitle' });
 
-// создаем экземпляры класса PopupWithForm для всех вадидируемых попапов
+// создаем экземпляры класса PopupWithForm для всех валидируемых попапов
 const popupNewProfile = new PopupWithForm('.popup_type_profile', handleSubmitProfileForm);
 const popupNewCard = new PopupWithForm('.popup_type_cards', handleSubmitAddCardForm);
 const popupNewAvatar = new PopupWithForm('.popup_type_avatar', handleSubmitAvaterForm);
@@ -120,7 +123,7 @@ profileAvatarFormValidator.enableValidation();
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-60',
   headers: {
-    authorization: 'f46fad9a-c49c-470a-a213-b2fd2a66b71a',  // токен
+    authorization: 'f46fad9a-c49c-470a-a213-b2fd2a66b71a', // токен
     'Content-Type': 'application/json',
   },
 });
@@ -133,6 +136,14 @@ api.getInitialCards()
     console.log(err);
   });
 
+api.setUserInfo()
+  .then((res) => {
+    profileName.textContent = res.name;
+    profileAbout.textContent = res.about;
+    profileAvatar.src = res.avatar;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 //==================================
-
-

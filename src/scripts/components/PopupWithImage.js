@@ -8,12 +8,12 @@ export default class PopupWithImage extends Popup {
     this._figcap = document.querySelector('.popup__figcap');
   }
 
-  open({text, link}) {
+  open({name, link}) {
     super.open();
 
     this._photo.src = link;
-    this._photo.alt = text;
-    this._figcap.textContent = text;
+    this._photo.alt = name;
+    this._figcap.textContent = name;
   }
 }
 

@@ -1,11 +1,14 @@
 
 export const popupProfileOpenButton = document.querySelector('.profile__edit-button'); //кнопка открытия popup Profile
 export const popupCardsAddButton = document.querySelector('.profile__add-button'); //кнопка открытия popup Card
-export const avatarButton = document.querySelector('.profile__avatar-outside'); //кнопка открытия popup Avatar
+export const popupAvatarButton = document.querySelector('.profile__avatar-outside'); //кнопка открытия popup Avatar
 
-export const formElementCard = document.querySelector('.popup__form_type_cards');
-export const profileTitle = document.querySelector('.popup__input_type_name');
-export const profileSubitle = document.querySelector('.popup__input_type_job');
+export const profileTitleInput = document.querySelector('.popup__input_type_name');
+export const profileSubtitleInput = document.querySelector('.popup__input_type_job');
+
+export const profileName = document.querySelector('.profile__title')
+export const profileAbout = document.querySelector('.profile__subtitle');
+export const profileAvatar = document.querySelector('.profile__avatar');
 
 export const cardForm = document.querySelector('.popup__form_type_cards'); // popup Card
 export const profileForm = document.querySelector('.popup__form_type_profile'); // popup Profile

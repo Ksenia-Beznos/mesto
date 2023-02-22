@@ -11,23 +11,32 @@ export default class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'GET',
-      headers: this._headers
-    })
-    .then(res => {
+      headers: this._headers,
+    }).then((res) => {
       return this._checkStatusResponse(res, 'getInitialCards');
-    })
+    });
   }
 
-  
+  setUserInfo() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'GET',
+      headers: this._headers,
+    }).then((res) => {
+      return this._checkStatusResponse(res, 'getUserInfo');
+    });
+  }
 
 }
 
-// fetch('https://mesto.nomoreparties.co/v1/cohort-60/cards', {
-//   headers: {
-//     authorization: 'f46fad9a-c49c-470a-a213-b2fd2a66b71a',
-//   },
-// })
-//   .then((res) => res.json())
-//   .then((result) => {
-//     console.log(result);
-//   });
+
+
+
+fetch('https://mesto.nomoreparties.co/v1/cohort-60/users/me', {
+  headers: {
+    authorization: 'f46fad9a-c49c-470a-a213-b2fd2a66b71a',
+  },
+})
+  .then((res) => res.json())
+  .then((result) => {
+    console.log(result);
+  });

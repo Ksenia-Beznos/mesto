@@ -3,6 +3,8 @@
   max-width: 120px;
   max-height: 120px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
 
 .profile__avatar-outside:hover .profile__avatar-button::before {
