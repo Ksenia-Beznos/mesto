@@ -49,7 +49,7 @@ function createCard(item) {
 
 //==================================
 
-// открытие Popup Profile
+// открытие popup Profile
 popupProfileOpenButton.addEventListener('click', function () {
   popupNewProfile.open();
   const { title, subtitle } = userInfoPopup.getUserInfo();
@@ -59,13 +59,13 @@ popupProfileOpenButton.addEventListener('click', function () {
   profileFormValidator.cancelValidation();
 });
 
-// открытие Popup Card
+// открытие popup Card
 popupCardsAddButton.addEventListener('click', function () {
   popupNewCard.open();
   cardFormValidator.cancelValidation();
 });
 
-// открытие Popup Image
+// открытие popup Image
 function openImagePopup(name, link) {
   popupNewImage.open({ name, link });
 }
@@ -75,7 +75,7 @@ avatarButton.addEventListener('click', function () {
   popupNewAvatar.open();
 });
 
-// функция открытия Delete Confirm Popup
+// открытие popup Delete Card
 function openPopupDelete(element) {
   popupConfirmDelete.open();
   popupConfirmDelete.setElement(element);
@@ -120,7 +120,7 @@ profileAvatarFormValidator.enableValidation();
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-60',
   headers: {
-    authorization: 'f46fad9a-c49c-470a-a213-b2fd2a66b71a',
+    authorization: 'f46fad9a-c49c-470a-a213-b2fd2a66b71a',  // токен
     'Content-Type': 'application/json',
   },
 });
