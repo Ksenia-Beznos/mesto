@@ -19,10 +19,8 @@ export default class Card {
 
   // метод, измененяющий состояние лайка с обычного на активное и наоборот
   _сhangeLike() {
-    this._elementLikeButton.classList.toggle('element__heart-button_active');
-    this._clickLike(this, this._id, this._isLiked);
+    this._clickLike(this, this._id, this._isLiked, this._elementLikeButton);
     this._isLiked = !this._isLiked;
-    // console.log(this)
   }
 
   updateLikesLength(count) {

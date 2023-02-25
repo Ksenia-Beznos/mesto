@@ -20,8 +20,6 @@ import {
   cardForm,
   profileForm,
   profileAvatarForm,
-  profileAvatarImage,
-  profileAvatar,
 } from './scripts/utils/constants.js';
 
 //==================================
@@ -61,12 +59,12 @@ function handleSubmitAddCardForm(obj, submitButton) {
 
 // функция добавления данных в попап Avatar
 function handleSubmitAvaterForm(avatar, submitButton) {
-    const originalButtonText = submitButton.textContent;
-    changeButtonText(submitButton, 'Загрузка...');
+  const originalButtonText = submitButton.textContent;
+  changeButtonText(submitButton, 'Загрузка...');
   api
     .setAvatar(avatar.linkInputAvatar)
     .then((res) => {
-      profileAvatarImage.src = res.avatar;
+      currentUser.changeAvatar(res.avatar);
       popupNewAvatar.close();
     })
     .catch((err) => console.log(err))
@@ -112,6 +110,7 @@ function openImagePopup(name, link) {
 // открытие popup Avatar
 popupAvatarButton.addEventListener('click', function () {
   popupNewAvatar.open();
+  profileAvatarFormValidator.cancelValidation();
 });
 
 // открытие popup Delete Card
@@ -175,12 +174,13 @@ function handleSubmitDeleteForm(card, cardId, submitButton) {
 }
 
 // функция добавления лайков
-function changeLike(card, cardId, isLiked) {
+function changeLike(card, cardId, isLiked, likeButton) {
   if (isLiked) {
     api
       .removeLike(cardId)
       .then((res) => {
         card.updateLikesLength(res.likes.length);
+        likeButton.classList.remove('element__heart-button_active');
       })
       .catch((err) => console.log(err));
   } else {
@@ -188,20 +188,23 @@ function changeLike(card, cardId, isLiked) {
       .addLike(cardId)
       .then((res) => {
         card.updateLikesLength(res.likes.length);
+        likeButton.classList.add('element__heart-button_active');
       })
       .catch((err) => console.log(err));
   }
 }
 
-Promise.all([api.getUserInfo(), api.getInitialCards()]).then((res) => {
-  const initialCards = res[1];
-  const user = res[0];
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then((res) => {
+    const initialCards = res[1];
+    const user = res[0];
 
-  profileAvatar.src = user.avatar;
-  currentUser.setUserInfo(user);
-  currentUser.id = user._id;
+    currentUser.changeAvatar(user.avatar);
+    currentUser.setUserInfo(user);
+    currentUser.id = user._id;
 
-  cardList.renderItems(initialCards.reverse(), currentUser.id);
-});
+    cardList.renderItems(initialCards.reverse(), currentUser.id);
+  })
+  .catch((err) => console.log(err));
 
 //==================================
