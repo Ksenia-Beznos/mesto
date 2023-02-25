@@ -24,7 +24,7 @@ import {
 
 //==================================
 
-const currentUser = new UserInfo({ title: '.profile__title', subtitle: '.profile__subtitle' });
+const currentUser = new UserInfo({ title: '.profile__title', subtitle: '.profile__subtitle', avatar: '.profile__avatar' });
 
 // функция добавления данных, введенных в попап Profile
 function handleSubmitProfileForm(obj, submitButton) {
