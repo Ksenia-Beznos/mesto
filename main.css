@@ -5,7 +5,7 @@
 .header{border-bottom:1px solid rgba(84,84,84,.7);margin:45px auto 40px;max-width:880px}@media screen and (max-width:930px){.header{margin-top:28px;max-width:100%}}
 .header__logo{display:block;margin-bottom:41px;max-width:142px;min-height:33px}@media screen and (max-width:930px){.header__logo{margin-left:27px;max-width:130px}}@media screen and (max-width:320px){.header__logo{margin-bottom:31.6px;max-width:103.74px;min-height:24.4px}}
 .profile{display:flex;flex-direction:row;margin:0 auto 47.25px;max-width:880px}@media screen and (max-width:930px){.profile{justify-content:center;max-width:760px}}@media screen and (max-width:800px){.profile{flex-direction:column;margin:0 auto 36px;max-width:520px;padding:0}}@media screen and (max-width:430px){.profile{max-width:425px}}@media screen and (max-width:320px){.profile{max-width:282px}}
-.profile__avatar{border-radius:50%;display:block;max-height:120px;max-width:120px}@media screen and (max-width:800px){.profile__avatar{align-self:center;display:flex;margin-bottom:3px}}
+.profile__avatar{border-radius:50%;display:block;height:120px;-o-object-fit:cover;object-fit:cover;width:120px}@media screen and (max-width:800px){.profile__avatar{align-self:center;display:flex;margin-bottom:3px}}
 .profile__container{-moz-column-gap:244px;column-gap:244px;display:flex;margin-left:30px}@media screen and (max-width:930px){.profile__container{-moz-column-gap:120px;column-gap:120px;margin-left:15px}}@media screen and (max-width:800px){.profile__container{flex-direction:column;margin-left:0;row-gap:29px}}@media screen and (max-width:320px){.profile__container{row-gap:33px}}
 .profile__info{color:#fff;margin:23px auto 25px 0;position:relative;width:336px}@media screen and (max-width:800px){.profile__info{display:flex;flex-direction:column;margin:23px auto 0;max-width:100%}}@media screen and (max-width:624px){.profile__info{align-items:center;width:282px}}
 .profile__title{font-family:Inter,Arial,sans-serif;font-size:42px;font-weight:500;line-height:1.1;margin:0;max-width:315px;overflow:hidden;padding-bottom:8px;text-overflow:ellipsis;white-space:nowrap}@media screen and (max-width:624px){.profile__title{font-size:30px;line-height:1.2;max-width:220px}}@media screen and (max-width:430px){.profile__title{font-size:27px;line-height:1.22}}@media screen and (max-width:320px){.profile__title{max-width:189px;padding-bottom:8px}}
@@ -16,11 +16,13 @@
 .element{display:grid;gap:20px 17px;grid-template-columns:repeat(3,282px);margin:0;padding:0}@media screen and (max-width:930px){.element{gap:29px 32px;grid-template-columns:repeat(2,282px);margin:0 auto;max-width:594px}}@media screen and (max-width:624px){.element{gap:20px;grid-template-columns:1fr;max-width:282px}}
 .element__item{background-color:#fff;border-radius:10px;max-width:282px;position:relative}
 .element__image{border-radius:10px 10px 0 0;display:block;height:282px;-o-object-fit:cover;object-fit:cover;width:282px}.element__image:hover{cursor:pointer;opacity:.6}
-.element__mask-group{align-items:center;display:flex;justify-content:space-between;margin:0;padding:25px 20px 25px 21px}
+.element__mask-group{align-items:center;display:flex;justify-content:space-between;margin:0;padding:21px 20px 20px 22px}
 .element__title{font-family:Inter,Arial,sans-serif;font-size:24px;font-weight:900;line-height:1.2;margin:0;overflow:hidden;padding:0;text-overflow:ellipsis;white-space:nowrap}
 .element__heart-button{background-color:transparent;background-image:url(6d2bfa8dda4d9faf5dd9.svg);background-repeat:no-repeat;border:none;height:19px;outline:none;padding:0 0 0 22px;width:22px}.element__heart-button:hover{cursor:pointer;opacity:.5}
 .element__heart-button_active{background-image:url(e787eeb70bb65b7b453a.svg);opacity:1}
-.element__trash-button{background-color:transparent;background-image:url(823b0cf1b0b7e9cb7cad.svg);border:none;height:19px;outline:none;position:absolute;right:20px;top:20px;width:18px}.element__trash-button:hover{cursor:pointer;opacity:.5}
+.element__trash-button{background-color:transparent;background-image:url(823b0cf1b0b7e9cb7cad.svg);border:none;height:19px;outline:none;position:absolute;right:16px;top:18px;width:18px}.element__trash-button:hover{cursor:pointer;opacity:.5}
+.element__heart-button-group{align-items:center;display:flex;flex-direction:column;gap:3px}
+.element__heart-button-count{font-family:Inter,Arial,sans-serif;font-size:13px;font-weight:400;line-height:1.2}
 .footer{margin:67px 0 60px 200px;max-width:318px}@media screen and (max-width:1279px){.footer{margin:48px auto 36px;max-width:282px;text-align:center}}@media screen and (max-width:320px){.footer{text-align:left}}
 .footer__copyright{color:#545454;font-family:Inter,Arial,sans-serif;font-size:18px;font-weight:400;line-height:1.22;margin:0;padding:0}@media screen and (max-width:930px){.footer__copyright{font-size:14px;max-width:282px}}
 .popup{align-items:center;background:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;margin:0 auto;opacity:0;position:fixed;right:0;top:0;transition:visibility .5s,opacity .5s linear;visibility:hidden;width:100%}@media screen and (max-width:550px){.popup{max-width:100%;min-height:568px}}
@@ -39,4 +41,8 @@
 .popup__input_error_active{color:red;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:400;line-height:1.21;margin-top:5px}
 .popup__input-error{display:block;margin-top:5px;min-height:30px}
 .popup__submit-button_disabled{background-color:#fff;border:1px solid #c4c4c4;color:#c4c4c4}.popup__submit-button_disabled:hover{cursor:default;opacity:1}
+.popup__heading_type_cards-delete{margin:33px 0}
+.popup__submit-button_type_avatar{margin:13px 0 0}
+.profile__avatar-button{background-color:transparent;border:none;cursor:pointer;outline:none;padding:0;position:relative}.profile__avatar-button:before{align-items:center;background-color:rgba(0,0,0,.8);bottom:0;content:url(93c771f5f8582261951d.png);display:none;justify-content:center;left:0;position:absolute;right:0;top:0}
+.profile__avatar-outside{border-radius:50%;display:flex;justify-content:center;margin:0 auto;max-height:120px;max-width:120px}.profile__avatar-outside:hover .profile__avatar-button:before{display:flex}
 
