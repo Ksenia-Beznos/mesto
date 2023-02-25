@@ -4,12 +4,12 @@ export default class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-  renderItems(renderedItems) {
-    renderedItems.forEach((item) => this._renderer(item));
+  renderItems(renderedItems, userId) {
+    renderedItems.forEach((item) => this._renderer(item, userId));
   }
 
-  renderItem(oneCard) {
-    this._renderer(oneCard);
+  renderItem(oneCard, userId) {
+    this._renderer(oneCard, userId);
   }
 
   addItem(element) {

@@ -10,6 +10,7 @@ export default class PopupWithForm extends Popup {
     this._popupSubmitCallback = popupSubmitCallback;
 
     this._submitForm = this._submitForm.bind(this);
+    this._submitButton = this._form.querySelector('.popup__submit-button');
   }
 
   _getInputValues() {
@@ -32,7 +33,7 @@ export default class PopupWithForm extends Popup {
 
   _submitForm(event) {
     event.preventDefault();
-    this._popupSubmitCallback(this._getInputValues());
+    this._popupSubmitCallback(this._getInputValues(), this._submitButton);
   }
 
   close() {

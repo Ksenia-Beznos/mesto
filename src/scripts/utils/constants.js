@@ -13,6 +13,7 @@ export const profileAvatar = document.querySelector('.profile__avatar');
 export const cardForm = document.querySelector('.popup__form_type_cards'); // popup Card
 export const profileForm = document.querySelector('.popup__form_type_profile'); // popup Profile
 export const profileAvatarForm = document.querySelector('.popup__form_type_avatar'); // popup Avatar
+export const profileAvatarImage = document.querySelector('.profile__avatar');
 
 // ----------------
 

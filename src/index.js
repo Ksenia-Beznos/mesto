@@ -9,6 +9,7 @@ import Section from './scripts/components/Section.js';
 import Api from './scripts/components/Api.js';
 
 import { validationConfig } from './scripts/utils/constants.js';
+import { changeButtonText } from './scripts/utils/utils.js';
 
 import {
   popupProfileOpenButton,
@@ -19,34 +20,69 @@ import {
   cardForm,
   profileForm,
   profileAvatarForm,
-  profileName,
-  profileAbout,
+  profileAvatarImage,
   profileAvatar,
 } from './scripts/utils/constants.js';
 
 //==================================
 
+const currentUser = new UserInfo({ title: '.profile__title', subtitle: '.profile__subtitle' });
+
 // функция добавления данных, введенных в попап Profile
-function handleSubmitProfileForm(obj) {
-  userInfoPopup.setUserInfo(obj.nameInput, obj.jobInput);
-  popupNewProfile.close();
+function handleSubmitProfileForm(obj, submitButton) {
+  const originalButtonText = submitButton.textContent;
+  changeButtonText(submitButton, 'Сохранить ...');
+
+  api
+    .setUserInfo(obj.nameInput, obj.jobInput)
+    .then((user) => {
+      currentUser.setUserInfo(user);
+      popupNewProfile.close();
+    })
+    .catch((err) => console.log(err))
+    .finally(() => changeButtonText(submitButton, originalButtonText));
 }
 
 // функция добавления данных в попап Card
-function handleSubmitAddCardForm(obj) {
+function handleSubmitAddCardForm(obj, submitButton) {
+  const originalButtonText = submitButton.textContent;
+  changeButtonText(submitButton, 'Загрузка...');
   const newCard = { name: obj.titleInput, link: obj.linkInput };
-  cardList.renderItem(newCard);
-  popupNewCard.close();
+
+  api
+    .addCard(newCard)
+    .then((res) => {
+      cardList.renderItem(res, currentUser.id);
+      popupNewCard.close();
+    })
+    .catch((err) => console.log(err))
+    .finally(() => changeButtonText(submitButton, originalButtonText));
 }
 
 // функция добавления данных в попап Avatar
-function handleSubmitAvaterForm() {
-  popupNewAvatar.close();
+function handleSubmitAvaterForm(avatar, submitButton) {
+    const originalButtonText = submitButton.textContent;
+    changeButtonText(submitButton, 'Загрузка...');
+  api
+    .setAvatar(avatar.linkInputAvatar)
+    .then((res) => {
+      profileAvatarImage.src = res.avatar;
+      popupNewAvatar.close();
+    })
+    .catch((err) => console.log(err))
+    .finally(() => changeButtonText(submitButton, originalButtonText));
 }
 
 // функция создания карточки
-function createCard(item) {
-  const cardElement = new Card(item, '#template-element', openImagePopup, openPopupDelete).generateCard();
+function createCard(card, userId) {
+  const cardElement = new Card(
+    card,
+    { owner: '#template-element-owner', user: '#template-element' },
+    openImagePopup,
+    openPopupDelete,
+    changeLike,
+    userId
+  ).generateCard();
   return cardElement;
 }
 
@@ -55,7 +91,7 @@ function createCard(item) {
 // открытие popup Profile
 popupProfileOpenButton.addEventListener('click', function () {
   popupNewProfile.open();
-  const { title, subtitle } = userInfoPopup.getUserInfo();
+  const { title, subtitle } = currentUser.getUserInfo();
   profileTitleInput.value = title;
   profileSubtitleInput.value = subtitle;
 
@@ -79,16 +115,12 @@ popupAvatarButton.addEventListener('click', function () {
 });
 
 // открытие popup Delete Card
-function openPopupDelete(element) {
-  popupConfirmDelete.open();
-  popupConfirmDelete.setElement(element);
-  profileAvatarFormValidator.cancelValidation();
+function openPopupDelete(card, cardId) {
+  popupConfirmDelete.open(card, cardId);
+  console.log(card, cardId);
 }
 
 //==================================
-
-// создаем экземпляр класса UserInfo
-const userInfoPopup = new UserInfo({ title: '.profile__title', subtitle: '.profile__subtitle' });
 
 // создаем экземпляры класса PopupWithForm для всех валидируемых попапов
 const popupNewProfile = new PopupWithForm('.popup_type_profile', handleSubmitProfileForm);
@@ -99,11 +131,11 @@ const popupNewAvatar = new PopupWithForm('.popup_type_avatar', handleSubmitAvate
 const popupNewImage = new PopupWithImage('.popup_type_image');
 
 // создаем экземпляр класса PopupCardDelete
-const popupConfirmDelete = new PopupCardDelete('.popup_type_cards-delete');
+const popupConfirmDelete = new PopupCardDelete('.popup_type_cards-delete', handleSubmitDeleteForm);
 
 // создаем экземпляр класса Section
-const cardList = new Section((item) => {
-  const cardElement = createCard(item);
+const cardList = new Section((card, userId) => {
+  const cardElement = createCard(card, userId);
   cardList.addItem(cardElement);
 }, '.element');
 
@@ -128,27 +160,48 @@ const api = new Api({
   },
 });
 
-  // загрузка карточек с сервера
-api.getInitialCards()
-  .then((cardsArray) => {
-    cardList.renderItems(cardsArray);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+function handleSubmitDeleteForm(card, cardId, submitButton) {
+  const originalButtonText = submitButton.textContent;
+  changeButtonText(submitButton, 'Загрузка...');
 
-  // загрузка данные в Profile с сервера
-api.setUserInfo()
-  .then((res) => {
-    profileName.textContent = res.name;
-    profileAbout.textContent = res.about;
-    profileAvatar.src = res.avatar;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  api
+    .removeCard(cardId)
+    .then(() => {
+      card.remove();
+      this.close();
+    })
+    .catch((err) => console.log(err))
+    .finally(() => changeButtonText(submitButton, originalButtonText));
+}
 
+// функция добавления лайков
+function changeLike(card, cardId, isLiked) {
+  if (isLiked) {
+    api
+      .removeLike(cardId)
+      .then((res) => {
+        card.updateLikesLength(res.likes.length);
+      })
+      .catch((err) => console.log(err));
+  } else {
+    api
+      .addLike(cardId)
+      .then((res) => {
+        card.updateLikesLength(res.likes.length);
+      })
+      .catch((err) => console.log(err));
+  }
+}
 
+Promise.all([api.getUserInfo(), api.getInitialCards()]).then((res) => {
+  const initialCards = res[1];
+  const user = res[0];
 
+  profileAvatar.src = user.avatar;
+  currentUser.setUserInfo(user);
+  currentUser.id = user._id;
+
+  cardList.renderItems(initialCards.reverse(), currentUser.id);
+});
 
 //==================================
