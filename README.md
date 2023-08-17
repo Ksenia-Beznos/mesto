@@ -2,39 +2,36 @@
 
 ### Описание:
   Проект разрабатывался в рамках моего обучения на Веб-разработчика в Яндекс.Практикум.
-Он создавался поэтапно, от простого к сложному. Изначально состоял только из CSS и HTML, после чего добавился Java Script и проект был подключен к серверу.
+Он создавался поэтапно, от простого к сложному. Изначально состоял только из CSS и HTML, после чего добавился JavaScript и проект был подключен к серверу.
   Mesto - это компактная интеррактивная страница, где можно размещать информацию о себе, загружать фотографии, лайкать их и удалять. Также, этот функционал доступен для любого стороннего пользователя.
 
+  ### Функционал:
+* Редактирование аватара и профиля пользователя;
+* Добавление фото и лайков под ними;
+* Удаление фото и лайков;
+* Открытие фото в полном размере;
+* LiveValidation форм.
 
 ### **Какие технологии использовались**
+* HTML
+*  CSS:
+    - Flex layout;
+    - Grid layout;
+    - Позиционирование элементов;
+    - Адаптация сайта с использованием @media запросов;
+* JavaScript:
+    - ООП (классы, наследование);
+    - Директивы Export и Import в JS;
+    - Работа с сервером (ассинхронность, fetch, Promise, API);
+* Webpack;
+* Методология БЭМ;
+* Файловая структура БЭМ Nested.
+* Верстка Pixel Perfect;
 
-##### :heavy_check_mark: _CSS_
-
-##### :heavy_check_mark: _HTML_
-
-##### :heavy_check_mark: _Grid layout_
-
-##### :heavy_check_mark: _Flex layout_
-
-##### :heavy_check_mark: _Java Script (обработка событий, работа с DOM-деревом, валидация форм)_
-
-##### :heavy_check_mark: _Адаптивная верстка с использованием @media_
-
-##### :heavy_check_mark: _Объектно-ориентированное программирование (классы, наследование)_
-
-##### :heavy_check_mark: _Директивы Export и Import в JS_
-
-##### :heavy_check_mark: _Работа с сервером (ассинхронность, fetch, Promise)_
-
-____
-
-### **Что в планах**
-
-- [ ] Расширить функциональность сайта.
-
-### Ссылка на проект
-- https://ksenia-beznos.github.io/mesto/
-
-Структура сайта и организация файлов составлена по технологии **БЭМ Nested**.
+### **Макеты этапов проекта**
+[1 этап](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?type=design&node-id=0-1&mode=design)
+[2 этап](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?type=design&node-id=0-1&mode=design)
+[3 этап](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?type=design&node-id=0-1&mode=design)
+[4 этап](https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript.-Sprint-9?type=design&node-id=0-1&mode=design)
 
 **Автор сайта**: Ксения Безнос.
